@@ -4,7 +4,7 @@
 #include "MusicControl.h"
 using namespace std;
 
-class StickMan
+class StickMan:public Sprite
 {
 public:
 	static StickMan *GetInstance();
@@ -16,11 +16,10 @@ public:
 		}
 	}
 
-	Sprite* GetStickMan();
-
+	//Sprite* GetStickMan();
 private:
 	StickMan();
-	//~StickMan() { DestoryInstance(); }
+	~StickMan() { DestoryInstance(); }
 	static StickMan *m_Instance;
-	Sprite* stickMan;
+	//Sprite* stickMan;
 };

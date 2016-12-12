@@ -1,7 +1,7 @@
 #include "StickMan.h"
 
 StickMan::StickMan() {
-	stickMan = Sprite::create("stick man2.png");
+	Sprite::create("stick man2.png");
 }
 
 StickMan* StickMan::GetInstance() {
@@ -13,7 +13,8 @@ StickMan* StickMan::GetInstance() {
 }
 
 Sprite* StickMan::GetStickMan() {
-	return stickMan;
+	//return stickMan;
+	return 0;
 }
 
 StickMan *StickMan::m_Instance = NULL;

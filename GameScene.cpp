@@ -3,6 +3,7 @@
 #include"ChooseScene.h"
 #include"SettingScene.h"
 
+
 USING_NS_CC;
 
 double GameScene::speed = 2;
