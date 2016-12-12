@@ -10,6 +10,7 @@ void Observer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 void Observer::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	scene_reset();// control the scene
+	
 }
 
 void Observer::MenuClicked()
