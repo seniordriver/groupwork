@@ -5,42 +5,42 @@
 USING_NS_CC;
 
 
-//
-//bool DoubleScene::isHaveSaveFile1()
-//{
-//	if (!CCUserDefault::sharedUserDefault()->getBoolForKey("isHaveSaveFileXml1"))
-//	{
-//		CCUserDefault::sharedUserDefault()->setBoolForKey("isHaveSaveFileXml1", true);
-//		CCUserDefault::sharedUserDefault()->flush();
-//		CCUserDefault::sharedUserDefault()->setIntegerForKey("integer1", 0);
-//		CCUserDefault::sharedUserDefault()->setIntegerForKey("integer1", count1);
-//		return false;
-//	}
-//	else
-//	{
-//		if (count1 > CCUserDefault::sharedUserDefault()->getIntegerForKey("integer1"))
-//			CCUserDefault::sharedUserDefault()->setIntegerForKey("integer1", count1);
-//		return true;
-//	}
-//}
-//
-//bool DoubleScene::isHaveSaveFile2()
-//{
-//	if (!CCUserDefault::sharedUserDefault()->getBoolForKey("isHaveSaveFileXml2"))
-//	{
-//		CCUserDefault::sharedUserDefault()->setBoolForKey("isHaveSaveFileXml2", true);
-//		CCUserDefault::sharedUserDefault()->flush();
-//		CCUserDefault::sharedUserDefault()->setIntegerForKey("integer2", 0);
-//		CCUserDefault::sharedUserDefault()->setIntegerForKey("integer2", count2);
-//		return false;
-//	}
-//	else
-//	{
-//		if (count2 > CCUserDefault::sharedUserDefault()->getIntegerForKey("integer2"))
-//			CCUserDefault::sharedUserDefault()->setIntegerForKey("integer2", count2);
-//		return true;
-//	}
-//}
+
+bool DoubleScene::isHaveSaveFile1()
+{
+	if (!CCUserDefault::sharedUserDefault()->getBoolForKey("isHaveSaveFileXml1"))
+	{
+		CCUserDefault::sharedUserDefault()->setBoolForKey("isHaveSaveFileXml1", true);
+		CCUserDefault::sharedUserDefault()->flush();
+		CCUserDefault::sharedUserDefault()->setIntegerForKey("integer1", 0);
+		CCUserDefault::sharedUserDefault()->setIntegerForKey("integer1", count1);
+		return false;
+	}
+	else
+	{
+		if (count1 > CCUserDefault::sharedUserDefault()->getIntegerForKey("integer1"))
+			CCUserDefault::sharedUserDefault()->setIntegerForKey("integer1", count1);
+		return true;
+	}
+}
+
+bool DoubleScene::isHaveSaveFile2()
+{
+	if (!CCUserDefault::sharedUserDefault()->getBoolForKey("isHaveSaveFileXml2"))
+	{
+		CCUserDefault::sharedUserDefault()->setBoolForKey("isHaveSaveFileXml2", true);
+		CCUserDefault::sharedUserDefault()->flush();
+		CCUserDefault::sharedUserDefault()->setIntegerForKey("integer2", 0);
+		CCUserDefault::sharedUserDefault()->setIntegerForKey("integer2", count2);
+		return false;
+	}
+	else
+	{
+		if (count2 > CCUserDefault::sharedUserDefault()->getIntegerForKey("integer2"))
+			CCUserDefault::sharedUserDefault()->setIntegerForKey("integer2", count2);
+		return true;
+	}
+}
 
 Animate*DoubleScene::jump()
 {
@@ -99,7 +99,7 @@ void DoubleScene::collide1(float dt)
 			SimpleAudioEngine::getInstance()->end();
 			SimpleAudioEngine::getInstance()->playEffect("bge.wav");
 			Director::getInstance()->replaceScene(newScene::createScene());
-			//isHaveSaveFile1();
+			isHaveSaveFile1();
 
 		}
 		else
@@ -133,7 +133,7 @@ void DoubleScene::collide2(float dt)
 			SimpleAudioEngine::getInstance()->end();
 			SimpleAudioEngine::getInstance()->playEffect("bge.wav");
 			Director::getInstance()->replaceScene(newScene1::createScene());
-			//isHaveSaveFile2();
+			isHaveSaveFile2();
 		}
 		else
 		{

@@ -11,7 +11,7 @@ using namespace CocosDenshion;
 class DoubleScene : public cocos2d::Layer
 {
 public:
-	static Scene* createScene();
+	static cocos2d::Scene* createScene();
 
 	virtual bool init();
 
@@ -40,8 +40,8 @@ public:
 	CREATE_FUNC(DoubleScene);
 	int highscore1;
 	int highscore2;
-	//bool isHaveSaveFile1();
-	//bool isHaveSaveFile2();
+	bool isHaveSaveFile1();
+	bool isHaveSaveFile2();
 protected:
 	Sprite* show = Sprite::create("stick man2.png");
 	Sprite* show2 = Sprite::create("stick man2.png");
