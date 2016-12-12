@@ -4,20 +4,20 @@
 
 void Observer::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
-	Stickman_control();
+	//Stickman_control();
 }
 
 void Observer::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
-	scene_reset();// control the scene
+	//scene_reset();// control the scene
 	
 }
 
 void Observer::MenuClicked()
 {
-	if(clicked){}
+	//if(clicked){}
 }
 void Observer::BackClicked()
 {
-	if(clicked){}
+	//if(clicked){}
 }
