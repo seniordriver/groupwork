@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-#pragma once
-=======
->>>>>>> bd3235fd8f9d43035a7f0c84e656a8b77640f750
 #ifndef __GAMESCENE_SCENE_H__
 #define __GAMESCENE_SCENE_H__
 
@@ -9,7 +5,6 @@
 #include "SimpleAudioEngine.h"
 #include "ObjectDefine.h"
 #include "MusicControl.h"
-#include "StickMan.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -43,15 +38,8 @@ public:
 	int highscore;
 	bool isHaveSaveFile();
 	static double speed;
-<<<<<<< HEAD
-	StickMan* show;
 private:
-	
-=======
-private:
-	//Sprite* show = Sprite::create("stick man2.png");
-	Sprite* show = StickMan::GetInstance();
->>>>>>> bd3235fd8f9d43035a7f0c84e656a8b77640f750
+	Sprite* show = Sprite::create("stick man2.png");
 	Sprite* back = Sprite::create("background.png");
 	Vector<Sprite*> sprite;
 };
