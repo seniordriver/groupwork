@@ -1,9 +1,7 @@
-#pragma once
 #include "GameScene.h"
 #include "newScene.h"
 #include"ChooseScene.h"
 #include"SettingScene.h"
-
 
 USING_NS_CC;
 
@@ -25,7 +23,7 @@ bool GameScene::isHaveSaveFile()
 		return true;
 	}
 }
-Animate*GameScene::jump()
+Animate*GameScene:: jump()
 {
 	auto animation = Animation::create();
 	animation->addSpriteFrameWithFileName("stick man4.png");
@@ -64,20 +62,40 @@ void GameScene::collide(float dt)
 {
 	if ((count++)% 100 == 0)
 	{
-		auto s = Sprite::create("enemy.png");
-		int a = rand() % 150 + 280;
+		int a = rand() % 2;
+		if (a == 1) {
+			auto b = factoryFast->create();
+			auto s = b->GetSprite();
+			sprite.pushBack(s);
+			this->addChild(s, 3);
+		}
+		else {
+			auto b = factoryNormal->create();
+			auto s = b->GetSprite();
+			sprite.pushBack(s);
+			this->addChild(s, 3);
+		}
+		//auto s = Sprite::create("enemy.png");
+		//auto b = Factory::create();
+		//auto b = factoryNormal->create();
+		//auto b = factoryFast->create();
+		//auto s = b->GetSprite();
+		/*int a = rand() % 150 + 280;
 		auto m1 = MoveBy::create(speed, Vec2(-1050, 0));
 		s->setPosition(Vec2(1000, a));
 		sprite.pushBack(s);
 		auto rotate = RotateBy::create(1, 360);
-		s->runAction(Spawn::create(Repeat::create(rotate, 4), m1, nullptr));
-		this->addChild(s, 3);
+		s->runAction(Spawn::create(Repeat::create(rotate, 4), m1, nullptr));*/
+		//sprite.pushBack(s);
+		//this->addChild(s, 3);
 	}
 	for (int i = 0; i < sprite.size(); i++)
 	{
 		Sprite* enemy = sprite.at(i);
 		if (enemy->getBoundingBox().intersectsRect(show->getBoundingBox()))
 		{
+
+
 			SimpleAudioEngine::getInstance()->end();
 			if (!MusicControl::getisStop())
 				SimpleAudioEngine::getInstance()->playEffect("bge.wav");
@@ -115,7 +133,8 @@ Scene* GameScene::createScene()
 bool GameScene::init()
 {
 	StickMan::DestoryInstance();
-	show = StickMan::GetInstance();
+	//StickMan* stickMan = StickMan::GetInstance();
+	//Sprite* show = stickMan->GetStickMan();
 	if (!Layer::init())
 	{
 		return false;
@@ -150,14 +169,14 @@ bool GameScene::init()
 	high->setColor(Color3B(0, 0, 0));
 	this->addChild(high, 3);
 
-	
+
 	show->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
 	show->setPosition(Vec2(show->getContentSize().width + origin.x, visibleSize.height / 2 + origin.y - show->getContentSize().height / 2));
 
 	back->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	back->setPosition(Vec2(0, 0));
 
-   this->addChild(back);
+	this->addChild(back);
 	this->addChild(show,3);
 	
 	auto move1 = MoveTo::create(3, Point(visibleSize.width * 500 / 1024, visibleSize.height / 2 + origin.y - 57));
@@ -182,12 +201,11 @@ void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		case(EventKeyboard::KeyCode::KEY_UP_ARROW) :
 			show->stopAllActions();
 			show->runAction(RepeatForever::create(jump()));
+			back->runAction(Sequence::create(move, move->reverse(), nullptr));
 			for (int i = 0; i < sprite.size(); i++)
 			{
 				sprite.at(i)->runAction(Sequence::create(move->clone()->clone(), move->clone()->clone()->reverse(), nullptr));
 			}
-			back->runAction(Sequence::create(move, move->reverse(), nullptr));
-			
 			break;
 		case(EventKeyboard::KeyCode::KEY_DOWN_ARROW) :
 			show->stopAllActions();
