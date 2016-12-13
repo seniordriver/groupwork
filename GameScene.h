@@ -1,3 +1,4 @@
+#pragma once
 #ifndef __GAMESCENE_SCENE_H__
 #define __GAMESCENE_SCENE_H__
 
@@ -6,8 +7,6 @@
 #include "ObjectDefine.h"
 #include "MusicControl.h"
 #include "StickMan.h"
-#include "FactoryNormal.h"
-#include "FactoryFast.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -29,29 +28,26 @@ public:
 	void collide(float dt);
 
 
-	Animate* run();
-	Animate* jump();
-	Animate* slide();
-	MenuItemToggle* paures;
-	int count =0;
-	Label *score;
-	Label *high;
-	void togglemenu(Object* psender);
-	CREATE_FUNC(GameScene);
+	 Animate* run();
+	 Animate* jump();
+	 Animate* slide();
+	 MenuItemToggle* paures;
+	 int count =0;
+	 Label *score;
+	 Label *high;
+	 void togglemenu(Object* psender);
+    CREATE_FUNC(GameScene);
 	int highscore;
 	bool isHaveSaveFile();
 	static double speed;
+	StickMan* show;
 private:
-	//Sprite* show = Sprite::create("stick man2.png");
-	//StickMan* stickMan = StickMan::GetInstance();
-	//Sprite* show = stickMan->GetStickMan();
-	Sprite* show = StickMan::GetInstance()->GetStickMan();
-	//Sprite* show2 = StickMan::GetInstance()->GetStickMan();
-
+	
 	Sprite* back = Sprite::create("background.png");
 	Vector<Sprite*> sprite;
-	Factory* factoryNormal = new FactoryNormal();
-	Factory* factoryFast = new FactoryFast();
 };
+
+
+
 
 #endif // __GAMESCENE_SCENE_H__
