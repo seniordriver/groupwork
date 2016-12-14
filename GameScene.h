@@ -1,6 +1,5 @@
 #ifndef __GAMESCENE_SCENE_H__
 #define __GAMESCENE_SCENE_H__
-
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 #include "ObjectDefine.h"
@@ -9,6 +8,7 @@
 #include "FactoryNormal.h"
 #include "FactoryFast.h"
 #include "Iterator1.h"
+//#include "Observer.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -30,9 +30,9 @@ public:
 	void collide(float dt);
 
 
-	Animate* run();
-	Animate* jump();
-	Animate* slide();
+	static Animate* run();
+	static Animate* jump();
+	static Animate* slide();
 	MenuItemToggle* paures;
 	int count =0;
 	Label *score;
@@ -41,23 +41,22 @@ public:
 	CREATE_FUNC(GameScene);
 	int highscore;
 	bool isHaveSaveFile();
-	static double speed;
+	
+	StickMan* show;
+	//Sprite* show;
+	 //Vector<Sprite*> sprite;
+	Sprite * back = Sprite::create("background.png");
+
 private:
 	//Sprite* show = Sprite::create("stick man2.png");
 	//StickMan* stickMan = StickMan::GetInstance();
 	//Sprite* show = stickMan->GetStickMan();
-	Sprite* show = StickMan::GetInstance()->GetStickMan();
+	
 	//Sprite* show2 = StickMan::GetInstance()->GetStickMan();
-
-	Sprite* back = Sprite::create("background.png");
-	//Vector<Sprite*> sprite;
-	ConcreteAggregate* sprite = new ConcreteAggregate();
-	//sprite = new ConcreteAggregate();
-	//sprite = new ConcreteAggregate<Sprite*>();
-	//Iterator* iter = sprite->CreateIterator();
-	//iter = sprite->CreateIterator();
+	
 	Factory* factoryNormal = new FactoryNormal();
 	Factory* factoryFast = new FactoryFast();
+	ConcreteAggregate* sprite = new ConcreteAggregate();
 };
 
 #endif // __GAMESCENE_SCENE_H__

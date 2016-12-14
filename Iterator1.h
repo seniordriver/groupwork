@@ -3,7 +3,7 @@
 #include <vector>
 #include "cocos2d.h"
 
-//using namespace std;
+using namespace std;
 USING_NS_CC;
 using namespace CocosDenshion;
 

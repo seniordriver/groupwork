@@ -2,10 +2,11 @@
 #include "newScene.h"
 #include"ChooseScene.h"
 #include"SettingScene.h"
+//#include"Observer.h"
 
 USING_NS_CC;
 
-double GameScene::speed = 2;
+//Observer a;
 bool GameScene::isHaveSaveFile() 
 {
 	if (!CCUserDefault::sharedUserDefault()->getBoolForKey("isHaveSaveFileXml"))
@@ -62,16 +63,18 @@ void GameScene::collide(float dt)
 {
 	if ((count++)% 100 == 0)
 	{
-		int a = rand() % 2;
-		if (a == 1) {
-			auto b = factoryFast->create();
+		
+		int a=0;
+		if (ChooseScene::dif == 2){ a = rand() % 2; }
+		if (a == 0) {
+			auto b = factoryNormal->create();
 			auto s = b->GetSprite();
 			//sprite.pushBack(s);
 			sprite->Push(s);
 			this->addChild(s, 3);
 		}
 		else {
-			auto b = factoryNormal->create();
+			auto b = factoryFast->create();
 			auto s = b->GetSprite();
 			//sprite.pushBack(s);
 			sprite->Push(s);
@@ -150,6 +153,7 @@ void GameScene::collide(float dt)
 	//}
 }
 
+
 bool GameScene::checksprite(Sprite* check)
 {
 	Vec2 bg = check->getPosition();
@@ -170,6 +174,10 @@ Scene* GameScene::createScene()
 bool GameScene::init()
 {
 	StickMan::DestoryInstance();
+	GameScene::show = StickMan::GetInstance();
+	 
+	//a.listener1.pushBack(show);
+	//a.listener2.pushBack(show);
 	//StickMan* stickMan = StickMan::GetInstance();
 	//Sprite* show = stickMan->GetStickMan();
 	if (!Layer::init())
@@ -209,6 +217,7 @@ bool GameScene::init()
 
 	show->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
 	show->setPosition(Vec2(show->getContentSize().width + origin.x, visibleSize.height / 2 + origin.y - show->getContentSize().height / 2));
+	//a.listener1.pushBack(back);
 
 	back->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	back->setPosition(Vec2(0, 0));
@@ -236,18 +245,14 @@ void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		switch (keyCode)
 		{
 		case(EventKeyboard::KeyCode::KEY_UP_ARROW) :
-			show->stopAllActions();
-			show->runAction(RepeatForever::create(jump()));
-			back->runAction(Sequence::create(move, move->reverse(), nullptr));
-			//for (int i = 0; i < sprite.size(); i++)
-			//{
-			//	sprite.at(i)->runAction(Sequence::create(move->clone()->clone(), move->clone()->clone()->reverse(), nullptr));
-			//}
+			//show->stopAllActions();
+			//show->runAction(RepeatForever::create(jump()));
+			//a.KeyUp();
 			for (int i = 0; i < sprite->Count(); i++)
 			{
 				sprite->Pop(i)->runAction(Sequence::create(move->clone()->clone(), move->clone()->clone()->reverse(), nullptr));
 			}
-
+			back->runAction(Sequence::create(move, move->reverse(), nullptr));
 			break;
 		case(EventKeyboard::KeyCode::KEY_DOWN_ARROW) :
 			show->stopAllActions();
