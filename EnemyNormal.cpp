@@ -14,6 +14,7 @@ EnemyNormal::EnemyNormal() {
 
 Sprite* EnemyNormal::GetSprite() {
 	enemy->setPosition(Vec2(1000, height));
+	enemy->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 	enemy->runAction(Spawn::create(Repeat::create(rotateAction, 4), moveAction, nullptr));
 	return enemy;
 }

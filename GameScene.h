@@ -8,7 +8,7 @@
 #include "FactoryNormal.h"
 #include "FactoryFast.h"
 #include "Iterator1.h"
-//#include "Observer.h"
+#include "Observer.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;

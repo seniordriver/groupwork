@@ -6,7 +6,7 @@
 
 USING_NS_CC;
 
-//Observer a;
+Observer exam;
 bool GameScene::isHaveSaveFile() 
 {
 	if (!CCUserDefault::sharedUserDefault()->getBoolForKey("isHaveSaveFileXml"))
@@ -71,6 +71,7 @@ void GameScene::collide(float dt)
 			auto s = b->GetSprite();
 			//sprite.pushBack(s);
 			sprite->Push(s);
+			//exam.listener1.pushBack(s);
 			this->addChild(s, 3);
 		}
 		else {
@@ -78,6 +79,7 @@ void GameScene::collide(float dt)
 			auto s = b->GetSprite();
 			//sprite.pushBack(s);
 			sprite->Push(s);
+			//exam.listener1.pushBack(s);
 			this->addChild(s, 3);
 		}
 		//auto s = Sprite::create("enemy.png");
@@ -96,12 +98,18 @@ void GameScene::collide(float dt)
 	}
 	Iterator* iter = sprite->CreateIterator();
 	int i = 0;
+	for (int i = 2; i < exam.listener1.size();)
+	{
+		exam.listener1.erase(exam.listener1.size()-1);
+	}
 	while (!iter->IsEnd())
 	{
+		
 		//CCLog("%d\n", i);
 		//CCLog("count %d, m_cnt %d", sprite->Count(), iter->m_cnt);
 		//Sprite* enemy = sprite->Pop(i);
 		Sprite* enemy = iter->GetCur();
+		exam.listener1.pushBack(enemy);
 		if (enemy->getBoundingBox().intersectsRect(show->getBoundingBox()))
 		{
 
@@ -123,6 +131,7 @@ void GameScene::collide(float dt)
 		if (enemy->getPosition().x < origin.x - enemy->getContentSize().width / 2)
 		{
 			iter->Erase();
+			//exam.listener1.eraseObject(enemy);
 			this->removeChild(enemy, 1);
 		}
 		//cout << iter->GetCur() << " is ok" << endl;
@@ -173,10 +182,11 @@ Scene* GameScene::createScene()
 
 bool GameScene::init()
 {
+	exam.listener1.clear();
+	exam.listener2.clear();
 	StickMan::DestoryInstance();
 	GameScene::show = StickMan::GetInstance();
-	 
-	//a.listener1.pushBack(show);
+	
 	//a.listener2.pushBack(show);
 	//StickMan* stickMan = StickMan::GetInstance();
 	//Sprite* show = stickMan->GetStickMan();
@@ -217,11 +227,12 @@ bool GameScene::init()
 
 	show->setAnchorPoint(Vec2::ANCHOR_BOTTOM_RIGHT);
 	show->setPosition(Vec2(show->getContentSize().width + origin.x, visibleSize.height / 2 + origin.y - show->getContentSize().height / 2));
-	//a.listener1.pushBack(back);
+	if(exam.listener1.empty())exam.listener1.pushBack(show);
+	if (exam.listener2.empty())exam.listener2.pushBack(show);
 
 	back->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
 	back->setPosition(Vec2(0, 0));
-
+	exam.listener1.pushBack(back);
 	this->addChild(back);
 	this->addChild(show,3);
 	
@@ -247,16 +258,17 @@ void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		case(EventKeyboard::KeyCode::KEY_UP_ARROW) :
 			//show->stopAllActions();
 			//show->runAction(RepeatForever::create(jump()));
-			//a.KeyUp();
-			for (int i = 0; i < sprite->Count(); i++)
-			{
-				sprite->Pop(i)->runAction(Sequence::create(move->clone()->clone(), move->clone()->clone()->reverse(), nullptr));
-			}
-			back->runAction(Sequence::create(move, move->reverse(), nullptr));
+			exam.KeyUp();
+			//for (int i = 0; i < sprite->Count(); i++)
+			//{
+			//	sprite->Pop(i)->runAction(Sequence::create(move->clone()->clone(), move->clone()->clone()->reverse(), nullptr));
+			//}
+			//back->runAction(Sequence::create(move, move->reverse(), nullptr));
 			break;
 		case(EventKeyboard::KeyCode::KEY_DOWN_ARROW) :
-			show->stopAllActions();
-			show->runAction(Repeat::create(slide(),4));
+			//show->stopAllActions();
+			exam.KeyDown();
+			//show->runAction(Repeat::create(slide(),4));
 			break;
 		case(EventKeyboard::KeyCode::KEY_ESCAPE):
 			CocosDenshion::SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
