@@ -66,13 +66,15 @@ void GameScene::collide(float dt)
 		if (a == 1) {
 			auto b = factoryFast->create();
 			auto s = b->GetSprite();
-			sprite.pushBack(s);
+			//sprite.pushBack(s);
+			sprite->Push(s);
 			this->addChild(s, 3);
 		}
 		else {
 			auto b = factoryNormal->create();
 			auto s = b->GetSprite();
-			sprite.pushBack(s);
+			//sprite.pushBack(s);
+			sprite->Push(s);
 			this->addChild(s, 3);
 		}
 		//auto s = Sprite::create("enemy.png");
@@ -89,9 +91,14 @@ void GameScene::collide(float dt)
 		//sprite.pushBack(s);
 		//this->addChild(s, 3);
 	}
-	for (int i = 0; i < sprite.size(); i++)
+	Iterator* iter = sprite->CreateIterator();
+	int i = 0;
+	while (!iter->IsEnd())
 	{
-		Sprite* enemy = sprite.at(i);
+		//CCLog("%d\n", i);
+		//CCLog("count %d, m_cnt %d", sprite->Count(), iter->m_cnt);
+		//Sprite* enemy = sprite->Pop(i);
+		Sprite* enemy = iter->GetCur();
 		if (enemy->getBoundingBox().intersectsRect(show->getBoundingBox()))
 		{
 
@@ -101,16 +108,46 @@ void GameScene::collide(float dt)
 				SimpleAudioEngine::getInstance()->playEffect("bge.wav");
 			Director::getInstance()->replaceScene(newScene::createScene());
 			isHaveSaveFile();
-			
+
 		}
 		else
 		{
-			if (i%15==0)
-			score->setString(StringUtils::format("SCORE : %d", count));
+			if (i % 15 == 0)
+				score->setString(StringUtils::format("SCORE : %d", count));
 			highscore = UserDefault::sharedUserDefault()->getIntegerForKey("integer");
 			high->setString(StringUtils::format("HIGH SCORE : %d", highscore));
 		}
+		if (enemy->getPosition().x < origin.x - enemy->getContentSize().width / 2)
+		{
+			iter->Erase();
+			this->removeChild(enemy, 1);
+		}
+		//cout << iter->GetCur() << " is ok" << endl;
+		iter->Next();
+		i++;
 	}
+	//for (int i = 0; i < sprite.size(); i++)
+	//{
+	//	Sprite* enemy = sprite.at(i);
+	//	if (enemy->getBoundingBox().intersectsRect(show->getBoundingBox()))
+	//	{
+
+
+	//		SimpleAudioEngine::getInstance()->end();
+	//		if (!MusicControl::getisStop())
+	//			SimpleAudioEngine::getInstance()->playEffect("bge.wav");
+	//		Director::getInstance()->replaceScene(newScene::createScene());
+	//		isHaveSaveFile();
+	//		
+	//	}
+	//	else
+	//	{
+	//		if (i%15==0)
+	//		score->setString(StringUtils::format("SCORE : %d", count));
+	//		highscore = UserDefault::sharedUserDefault()->getIntegerForKey("integer");
+	//		high->setString(StringUtils::format("HIGH SCORE : %d", highscore));
+	//	}
+	//}
 }
 
 bool GameScene::checksprite(Sprite* check)
@@ -202,10 +239,15 @@ void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 			show->stopAllActions();
 			show->runAction(RepeatForever::create(jump()));
 			back->runAction(Sequence::create(move, move->reverse(), nullptr));
-			for (int i = 0; i < sprite.size(); i++)
+			//for (int i = 0; i < sprite.size(); i++)
+			//{
+			//	sprite.at(i)->runAction(Sequence::create(move->clone()->clone(), move->clone()->clone()->reverse(), nullptr));
+			//}
+			for (int i = 0; i < sprite->Count(); i++)
 			{
-				sprite.at(i)->runAction(Sequence::create(move->clone()->clone(), move->clone()->clone()->reverse(), nullptr));
+				sprite->Pop(i)->runAction(Sequence::create(move->clone()->clone(), move->clone()->clone()->reverse(), nullptr));
 			}
+
 			break;
 		case(EventKeyboard::KeyCode::KEY_DOWN_ARROW) :
 			show->stopAllActions();

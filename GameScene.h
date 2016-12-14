@@ -8,6 +8,7 @@
 #include "StickMan.h"
 #include "FactoryNormal.h"
 #include "FactoryFast.h"
+#include "Iterator1.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -49,7 +50,12 @@ private:
 	//Sprite* show2 = StickMan::GetInstance()->GetStickMan();
 
 	Sprite* back = Sprite::create("background.png");
-	Vector<Sprite*> sprite;
+	//Vector<Sprite*> sprite;
+	ConcreteAggregate* sprite = new ConcreteAggregate();
+	//sprite = new ConcreteAggregate();
+	//sprite = new ConcreteAggregate<Sprite*>();
+	//Iterator* iter = sprite->CreateIterator();
+	//iter = sprite->CreateIterator();
 	Factory* factoryNormal = new FactoryNormal();
 	Factory* factoryFast = new FactoryFast();
 };
